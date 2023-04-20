@@ -1,6 +1,45 @@
-version : '2.14.1'
+version : "3.9"
+
 services:
-  web:
-    image: nginx
-  db:
-    image: Mariadb
+
+  # mariadb:
+  #   container_name: mariadb
+  #   build: ./requirements/mariadb/
+  #   image: mariadb:1
+  #   environment:
+  #      - MARIADB_ROOT_PASSWORD
+  #      - MARIADB_USER
+  #      - MARIADB_USER_PASSWORD
+  #      - MARIADB_DATABASE
+  #   volumes:
+  #     - /home/$USER/data/DB:/var/lib/mysql/
+  #   ports:
+  #     - "3306:3306"
+  #   restart: on-failure
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/
+    image: nginx:1
+    # volumes:
+    #   - WordPess: PATH:ro
+    ports:
+      - "80:80"
+  # wordpress:
+  #   image: wordpress
+  #   volumes:
+  #     - WordPress:
+  #   ports:
+  #     - 9000
+  #     - 3306
+  #   depends_on:
+  #     - nginx
+  #     - mariadb
+    
+# volumes:
+#   DB:
+  # WordPess:
+
+# networks:
+  # default:
+    # Docker_network:
