@@ -9,8 +9,7 @@ RUN apt-get update && apt-get install -y \
 	-out /etc/ssl/certs/nginx-selfsigned.crt
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /var/www/html/index.html
 
-EXPOSE 443 9000
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

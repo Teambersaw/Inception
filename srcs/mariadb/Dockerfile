@@ -1,9 +1,13 @@
 FROM debian:buster
 
-RUN apt-get update && apt-get install -y mariadb-server
-
-COPY my.cnf /etc/mysql/my.cnf
+RUN apt-get update && apt-get install -y \
+	mariadb-client \
+	mariadb-server
 
 EXPOSE 3306
 
-ENTRYPOINT ["mysqld"]
+COPY my.cnf /etc/mysql/my.cnf
+
+# ENTRYPOINT ["./mariadb.sh"]
+
+CMD ["bash"]
