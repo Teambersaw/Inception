@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
 	wget https://fr.wordpress.org/wordpress-6.1-fr_FR.tar.gz -P /var/www && \
 	cd /var/www && tar -xzf wordpress-6.1-fr_FR.tar.gz && \
 	rm wordpress-6.1-fr_FR.tar.gz && \
-	chown -R root:root /var/www/wordpress
+	chown -R root:root /var/www/
 
 EXPOSE 9000
 
