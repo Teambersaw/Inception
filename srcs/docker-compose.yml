@@ -1,15 +1,63 @@
-version: '3'
-volumes:
-  data:
+version: "3.8"
+
 services:
-  db:
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    volumes:
-      - data:/var/lib/mysql
+
+  nginx:
+    container_name: nginx
+    build: 
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    env_file: .env
+    depends_on:
+      - wordpress
     ports:
-      - "3306:3306"
+    - "443:443"
+    networks:
+      - inception
+    volumes:
+      - wordpress:/var/www/wordpress
+    restart: on-failure
+
+  wordpress:
+    container_name: wordpress
+    build: 
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    env_file: .env
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    volumes:
+      - wordpress:/var/www/wordpress
+    restart: on-failure
+
+  mariadb:
+    container_name: mariadb
+    build: 
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    env_file: .env
+    networks:
+      - inception
+    volumes:
+      - mariadb:/var/lib/mysql
+    restart: on-failure
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+    type: 'none'
+    o: 'bind'
+    device: '/home/jrossett/data/wordpress'
+  mariadb:
+    driver: local
+    driver_opts:
+    type: 'none' 
+    o: 'bind'
+    device: '/home/jrossett/data/mariadb'
+
+networks:
+  inception:
+    driver: bridge
