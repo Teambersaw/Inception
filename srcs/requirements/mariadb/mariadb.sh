@@ -1,10 +1,11 @@
 #!/bin/bash
 
-mysql /bin/bash "mysqld &"
-
-mysql CREATE DATABASE wordpress_database;
-
-mysql "CREATE USER 'king'@'localhost' IDENTIFIED BY 'yes';"
-mysql "CREATE USER 'loser'@'localhost' IDENTIFIED BY 'no';"
-
-mysql "GRANT ALL PRIVILEGES ON *.* TO 'king'@'localhost';"
+/etc/init.d/mysql start
+echo -e "\ny\ny\n${DB_ROOT_PWD}\n${DB_ROOT_PWD}\ny\ny\ny\ny" | ./usr/bin/mysql_secure_installation
+mariadb -e "CREATE DATABASE wordpress";
+mariadb -e "CREATE USER '${LOGIN}'@'%' IDENTIFIED BY '${DB_USER_PWD}'";
+mariadb -e "GRANT ALL PRIVILEGES ON wordpress.* TO '${LOGIN}'@'%' IDENTIFIED BY '${DB_USER_PWD}'";
+mariadb -e "SHOW GRANTS FOR '${LOGIN}'@'%'";
+mariadb -e "SHOW DATABASES";
+mariadb -e "SELECT User FROM mysql.user";
+mysqld

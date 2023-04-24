@@ -43,8 +43,8 @@ services:
     env_file: .env
     networks:
       - inception
-    stdin_open: true
-    tty: true
+    # stdin_open: true
+    # tty: true
     # volumes:
     #   - mariadb:/var/lib/mysql
     restart: on-failure
