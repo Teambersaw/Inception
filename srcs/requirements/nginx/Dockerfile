@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
 	-keyout /etc/ssl/private/nginx-selfsigned.key \
 	-out /etc/ssl/certs/nginx-selfsigned.crt
 
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY index.php /var/www/
 
 EXPOSE 443

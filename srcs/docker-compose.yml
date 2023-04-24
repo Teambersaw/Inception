@@ -2,22 +2,22 @@ version: "3.8"
 
 services:
 
-  nginx:
-    container_name: nginx
-    build:
-      context: requirements/nginx
-      dockerfile: Dockerfile
-    image: nginx:1.0
-    env_file: .env
-    # depends_on:
-    #   - wordpress
-    ports:
-    - "443:443"
-    networks:
-      - inception
-    # volumes:
-    #   - wordpress:/var/www/wordpress
-    restart: on-failure
+  # nginx:
+  #   container_name: nginx
+  #   build:
+  #     context: requirements/nginx
+  #     dockerfile: Dockerfile
+  #   image: nginx:1.0
+  #   env_file: .env
+  #   # depends_on:
+  #   #   - wordpress
+  #   ports:
+  #   - "443:443"
+  #   networks:
+  #     - inception
+  #   # volumes:
+  #   #   - wordpress:/var/www/wordpress
+  #   restart: on-failure
 
 #   wordpress:
 #     container_name: wordpress
@@ -34,18 +34,20 @@ services:
 #       - wordpress:/var/www/wordpress
 #     restart: on-failure
 
-#   mariadb:
-#     container_name: mariadb
-#     build: 
-#       context: requirements/mariadb
-#       dockerfile: Dockerfile
-#     image: mariadb:1.0
-#     env_file: .env
-#     networks:
-#       - inception
-#     volumes:
-#       - mariadb:/var/lib/mysql
-#     restart: on-failure
+  mariadb:
+    container_name: mariadb
+    build: 
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    image: mariadb:1.0
+    env_file: .env
+    networks:
+      - inception
+    stdin_open: true
+    tty: true
+    # volumes:
+    #   - mariadb:/var/lib/mysql
+    restart: on-failure
 
 # volumes:
 #   wordpress:
