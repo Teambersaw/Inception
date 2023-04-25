@@ -46,9 +46,7 @@ services:
       - inception
     # volumes:
     #   - mariadb:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    restart: on-failure
+    restart: always
 
 # volumes:
 #   wordpress:
