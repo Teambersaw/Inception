@@ -4,9 +4,14 @@
 
 # if [ ! -f "$LOCK_FILE" ];
 # then
-wp config create --allow-root --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER --dbpass=$MYSQL_PASSWORD
-wp core install	--allow-root --url=$DOMAIN_NAME --title='Inception' --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWD --admin_email='jrossett@student.42.fr' --skip-email
-# wp create $WP_BASIC_USER "$WP_BASIC_MAIL" --user_pass="$WP_BASIC_PAS
-# fi
+sleep 10
+cd /var/www/html/wordpress
+wp core download --locale=fr_FR --allow-root
+chown -R www-data:www-data /var/www/html/wordpress
+find /var/www/html/wordpress -type f -exec chmod 644 {} \;
+find /var/www/html/wordpress -type d -exec chmod 755 {} \;
+# wp config create --dbname=wp --dbuser=wp --dbpass=wp --dbhost=mariadb:3306 --allow-root
+wp core install --url=jrossett.42.fr --title=inception --admin_user=wp --admin_password=wp --admin_email=jrossett@student.42.fr --skip-email --allow-root
 
-/usr/sbin/php-fpm7.3 -F --allow-to-run-as-root
+exec /usr/sbin/php-fpm7.3 -F
+# --allow-to-run-as-root

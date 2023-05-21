@@ -1,14 +1,21 @@
 #!/bin/sh
 
-LOCK_FILE="/var/lib/mysql/.lock"
-
+LOCK_FILE="/var/lib/mysql/lock_file"
 if [ ! -f "$LOCK_FILE" ];
 then
 mysql_install_db
-mariadb -e "CREATE DATABASE IF NOT EXISTS ${MARIADB_DATABASE}";
-mariadb -e "CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_USER_PWD}'";
-mariadb -e "GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE}.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION";
-mariadb -e "FLUSH PRIVILEGES";
+sleep 2
+service mysql start
+sleep 2
+mysql -u root --password="" <<EOF
+CREATE DATABASE IF NOT EXISTS \`${MARIADB_DATABASE}\`;
+CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_USER_PWD}';
+GRANT ALL PRIVILEGES ON \`${MARIADB_DATABASE}\`.* TO '${MARIADB_USER}'@'%';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '${MARIADB_ROOT_PWD}';
+FLUSH PRIVILEGES;
+EOF
+mysqladmin -u root --password="${MARIADB_ROOT_PWD}" shutdown
+sleep 2
 touch "$LOCK_FILE"
 fi
 

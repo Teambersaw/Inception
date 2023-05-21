@@ -52,12 +52,12 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '${HOME}/data/wordpress'
+      device: '/home/jrossett/data/wordpress'
   mariadb:
     driver_opts: 
       type: 'none'
       o: 'bind'
-      device: '${HOME}/data/mariadb'
+      device: '/home/jrossett/data/mariadb'
 
 networks:
   inception:
