@@ -26,6 +26,8 @@ services:
       dockerfile: Dockerfile
     image: wordpress:1.0
     env_file: .env
+    ports:
+      - "9000:9000"
     depends_on:
       - mariadb
     networks:

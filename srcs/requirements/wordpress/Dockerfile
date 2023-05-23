@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 EXPOSE 9000
 
 COPY config.sh .
-COPY default.conf /etc/php/7.3/fpm/pool.d/
+COPY default.conf /etc/php/7.3/fpm/pool.d/www.conf
 # COPY wp-config.php /var/www/html/wordpress
 
 CMD ["bash", "./config.sh"]
