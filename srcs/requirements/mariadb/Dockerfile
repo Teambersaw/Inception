@@ -2,7 +2,6 @@ FROM debian:buster
 
 RUN apt-get update && apt-get install -y \
 	mariadb-server \
-	mariadb-client \
 	procps && \
 	mkdir -p /var/lib/mysql && \
 	mkdir -p /var/run/mysqld && \
@@ -11,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 
 EXPOSE 3306
 
-COPY init.sh .
-COPY ./my.cnf /etc/mysql/my.cnf
+COPY conf/init.sh .
+COPY conf/my.cnf /etc/mysql/my.cnf
 
 CMD ["bash", "./init.sh"]
